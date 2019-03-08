@@ -1,0 +1,12 @@
+<strong>Hola [[user]],</strong>
+<br /><br />
+Su solicitud requiere revisión.
+<br /><br />
+<p>[[mensaje]]</p>
+<br /><br />
+Por favor inicie sesión haciendo click a continuacion y entrando en la Acción "Corregir"
+<br /><br />
+<!-- <a href='[[link]]' target='_blank'>[[link]]</a> -->
+<a href='http://186.178.8.30/mce' target='_blank'>AVANCE DE PROCESO</a>
+<br /><br /><br />
+<strong>Atte. Ecuador ama la vida</strong>

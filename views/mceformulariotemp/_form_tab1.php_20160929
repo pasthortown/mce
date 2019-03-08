@@ -1,0 +1,461 @@
+<?php
+/*
+ * The PenBlu framework is free software. It is released under the terms of
+ * the following BSD License.
+ *
+ * Copyright (C) 2015 by PenBlu Software (http://www.penblu.com)
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  - Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
+ *    distribution.
+ *  - Neither the name of PenBlu Software nor the names of its
+ *    contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * PenBlu is based on code by
+ * Yii Software LLC (http://www.yiisoft.com) Copyright Â© 2008
+ *
+ * Authors:
+ *
+ * Eduardo Cueva <edu19432@gmail.com>
+ * Byron Villacreses <byronvillacreses@gmail.com>
+ */
+
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use kartik\file\FileInput;
+use yii\helpers\Url;
+
+?>
+
+
+<!--    <h2><?= Yii::t("formulario", "Data Logging") ?></h2>-->
+<div class="col-md-12">
+    <h3><?= Yii::t("formulario", "Data Source") ?></h3>
+</div>
+
+<div class="col-md-12">
+    <div class="info-alertpb"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;Mostrar requisitios de la Solicitud <?= Html::a('<span class="glyphicon glyphicon-list-alt"></span>', null, ['href' => 'javascript:ModalTipoPersona()', "data-toggle" => "tooltip", "title" => "Ver Requisitos"]); ?></div> 
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="lbl_origen" class="col-sm-3 control-label"><?= Yii::t("formulario", "Source") ?></label>
+        <div class="col-sm-9">
+            <?= Html::dropDownList("cmb_ftem_origen", 0, $origen, ["class" => "form-control", "id" => "cmb_ftem_origen"]) ?>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="lbl_origen" class="col-sm-3 control-label"><?= Yii::t("formulario", "Type person") ?></label>
+        <div class="col-sm-9">
+            <?= Html::dropDownList("cmb_ftem_personeria", 0, $personeria, ["class" => "form-control", "id" => "cmb_ftem_personeria"]) ?>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <h3><span id="lbl_Personeria"><?= Yii::t("formulario", "Natural Person") ?></span></h3>
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_nombre" class="col-sm-3 control-label"><?= Yii::t("formulario", "First Name") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation keyupmce" id="txt_ftem_nombre" data-type="alfa" data-keydown="true" placeholder="<?= Yii::t("formulario", "First Name") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_apellido" class="col-sm-3 control-label"><?= Yii::t("formulario", "Last Name") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation keyupmce" id="txt_ftem_apellido" data-type="alfa" data-keydown="true" placeholder="<?= Yii::t("formulario", "Last Name") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_cedula" class="col-sm-3 control-label"><?= Yii::t("formulario", "DNI") ?></label>
+        <div class="col-sm-9">
+            <input type="text" maxlength="10" class="form-control PBvalidation keyupmce" id="txt_ftem_cedula" data-type="cedula" data-keydown="true" placeholder="<?= Yii::t("formulario", "National identity document") ?>">
+        </div>
+    </div>
+</div>
+<div id="div_ruc_persona" class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_ruc_persona" class="col-sm-3 control-label keyupmce"><?= Yii::t("formulario", "RUC") ?></label>
+        <div class="col-sm-9">
+            <input type="text" maxlength="15" class="form-control PBvalidation keyupmce" id="txt_ftem_ruc_persona" data-type="number" data-keydown="true" placeholder="<?= Yii::t("formulario", "RUC") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="cmb_ftem_genero" class="col-sm-3 control-label"><?= Yii::t("formulario", "Gender") ?></label>
+        <div class="col-sm-9">
+            <?= Html::dropDownList("cmb_ftem_genero", 0, $genero, ["class" => "form-control", "id" => "cmb_ftem_genero"]) ?>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_cargo_persona" class="col-sm-3 control-label"><?= Yii::t("formulario", "Position") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation keyupmce" id="txt_ftem_cargo_persona" data-type="alfanumerico" data-keydown="true" placeholder="<?= Yii::t("formulario", "Position") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_correo" class="col-sm-3 control-label"><?= Yii::t("formulario", "Email") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation" id="txt_ftem_correo" data-type="email" data-keydown="true" placeholder="<?= Yii::t("formulario", "Email") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="cmb_ftem_raza_etnica" class="col-sm-3 control-label"><?= Yii::t("formulario", "Ethnic self") ?></label>
+        <div class="col-sm-9">
+            <?= Html::dropDownList("cmb_ftem_RazaEtnica", 0, $etnica, ["class" => "form-control", "id" => "cmb_ftem_raza_etnica"]) ?>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12">
+    <h3><span id="lbl_Personeria"><?= Yii::t("formulario", "Information Company") ?></span></h3>
+</div>
+<div id="div_razonSocial" class="col-md-6" >
+<!--    <div  class="form-group" >
+        <label for="txt_ftem_razon_social" class="col-sm-3 control-label"><?= Yii::t("formulario", "Business name") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation keyupmce" id="txt_ftem_razon_social" data-type="alfanumerico" data-keydown="true" placeholder="<?= Yii::t("formulario", "Business name") ?>">
+        </div>
+    </div>-->
+</div>
+<div id="div_ruc_empresa" class="col-md-6" >
+<!--    <div class="form-group">
+        <label for="txt_ftem_ruc_empresa" class="col-sm-3 control-label keyupmce"><?= Yii::t("formulario", "RUC") ?></label>
+        <div class="col-sm-9">
+            <input type="text" maxlength="15" class="form-control PBvalidation keyupmce" id="txt_ftem_ruc_empresa" data-type="number" data-keydown="true" placeholder="<?= Yii::t("formulario", "RUC") ?>">
+        </div>
+    </div>-->
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="cmb_ftem_giroprincipal" class="col-sm-3 control-label"><?= Yii::t("formulario", "Sector") ?></label>
+        <div class="col-sm-9">
+            <select id="cmb_ftem_giroprincipal" class="form-control">
+                <?php
+                foreach ($industria as $key4 => $value4) {
+                    $name = $value4["ind_giro"];
+                    $id = $value4["ind_id"];
+                    echo "<option value='" . $id . "'>" . $name . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+    </div> 
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="cmb_ftem_tipo_pyme" class="col-sm-3 control-label"><?= Yii::t("formulario", "Size company") ?></label>
+        <div class="col-sm-9">
+            <?= Html::dropDownList("cmb_ftem_tipo_pyme", 0, $tipopyme, ["class" => "form-control", "id" => "cmb_ftem_tipo_pyme"]) ?>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="cmb_provincia" class="col-sm-3 control-label"><?= Yii::t("formulario", "State") ?></label>
+        <div class="col-sm-9">
+            <select id="cmb_provincia" class="form-control">
+                <?php
+                foreach ($provincias as $key2 => $value2) {
+                    $name = $value2["prov_nombre"];
+                    $id = $value2["prov_id"];
+                    if ($id <> 25) {//Para No presentar TODAS
+                        echo "<option value='" . $id . "'>" . $name . "</option>";
+                    }
+                }
+                ?>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="cmb_ciudad" class="col-sm-3 control-label"><?= Yii::t("formulario", "City") ?></label>
+        <div class="col-sm-9">
+            <select id="cmb_ciudad" class="form-control">
+                <?php
+                foreach ($cantones as $key3 => $value3) {
+                    $name = $value3["can_nombre"];
+                    $id = $value3["can_id"];
+                    echo "<option value='" . $id . "'>" . $name . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_direccion" class="col-sm-3 control-label"><?= Yii::t("formulario", "Address") ?></label>
+        <div class="col-sm-9">
+            <textarea class="form-control PBvalidation keyupmce" rows="2" id="txt_ftem_direccion" data-type="all" data-keydown="true" placeholder="<?= Yii::t("formulario", "Office address") ?>"></textarea>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_telefono" class="col-sm-3 control-label"><?= Yii::t("formulario", "Phone") ?></label>
+        <div class="col-sm-9">
+            <textarea maxlength="13" class="form-control PBvalidation keyupmce" rows="2" id="txt_ftem_telefono" data-type="celular" data-keydown="true" placeholder="<?= Yii::t("formulario", "Phone") ?>"></textarea>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-6">
+       <div class="form-group">
+        <label for="txt_ftem_sitio_web" class="col-sm-3 control-label"><?= Yii::t("formulario", "Web page") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation" id="txt_ftem_sitio_web" data-type="texto" data-keydown="true" placeholder="<?= Yii::t("formulario", "Web page") ?>">
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <h3><span id="lbl_Personeria"><?= Yii::t("formulario", "Information Contac") ?></span></h3>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_contacto" class="col-sm-3 control-label"><?= Yii::t("formulario", "Contact") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation keyupmce" id="txt_ftem_contacto" data-type="alfanumerico" data-keydown="true" placeholder="<?= Yii::t("formulario", "Contact") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_contacto_cargo" class="col-sm-3 control-label"><?= Yii::t("formulario", "Position") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation keyupmce" id="txt_ftem_contacto_cargo" data-type="alfanumerico" data-keydown="true" placeholder="<?= Yii::t("formulario", "Position") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_contacto_correo" class="col-sm-3 control-label"><?= Yii::t("formulario", "Email") ?></label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control PBvalidation" id="txt_ftem_contacto_correo" data-type="email" data-keydown="true" placeholder="<?= Yii::t("formulario", "Email") ?>">
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="txt_ftem_contacto_telefono" class="col-sm-3 control-label"><?= Yii::t("formulario", "Phone") ?></label>
+        <div class="col-sm-9">
+            <input type="text" maxlength="13" class="form-control PBvalidation keyupmce" id="txt_ftem_contacto_telefono" data-type="celular" data-keydown="true" placeholder="<?= Yii::t("formulario", "Phone") ?>">
+        </div>
+    </div>
+</div>
+<!--<span>File</span>
+<input type="file" id="file" name="file" size="10"/>
+<input id="uploadbutton" type="button" value="Upload"/>-->
+
+<div class="col-md-12">
+    <h3><?= Yii::t("formulario", "Attach documents") ?></h3>
+    <div class="info-alertpb"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;<?= Yii::t("formulario", "(Must attach files in jpg, png or pdf with a maximum weight of 1MB per file)") ?></div>
+    <div class="form-group">
+        <label for="txt_ftem_cedula_file" class="col-sm-3 control-label"><?= Yii::t("formulario", "DNI") ?></label>
+        <div class="col-sm-6">
+            <?php 
+            /*echo FileInput::widget([
+                'id' => 'txt_ftem_cedula_file',
+                'name' => 'file',
+                'pluginOptions' => [
+                    'previewFileType' => 'any',
+                    //'uploadAsync' => true,
+                    'showPreview' => false,
+                    //'progressClass' => false,
+                    //'showCancel' => false,
+                    //'showUpload' => false,
+                    //'overwriteInitial' => true,
+                    'browseLabel' => Yii::t("formulario", "Examine"),
+                    'uploadUrl' => Url::to(['/mceformulariotemp/uploadfile']),
+                    'allowedFileExtensions' => Yii::$app->params["FileExtensions"],
+                    'initialCaption' => Yii::t("formulario", "Attach National identity document"),
+                    'maxFileSize' => Yii::$app->params["MaxFileSize"],
+                    'uploadExtraData' => [
+                        'album_id' => 20,
+                        'cat_id' => 'Nature'
+                    ],
+                ],
+                    //'options' => ['id' => 'txt_ftem_cedula_file'],
+                    //'pluginEvents' => [
+                    //'fileuploaded' => "function(event, data, previewId, index) {\$.pjax.reload({container:'#files'});}",
+                    //],
+            ]);*/
+            ?>
+            <input id="txt_ftem_cedula_file" name="file" type="file" class="file-loading" >
+            <?= Html::hiddenInput('txth_ftem_cedula_file', '',['id' =>'txth_ftem_cedula_file']); ?>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txt_ftem_ruc_file" class="col-sm-3 control-label"><?= Yii::t("formulario", "RUC") ?></label>
+        <div class="col-sm-6">
+            <?php
+            /*echo FileInput::widget([
+                'name' => 'file',
+                'id' => 'txt_ftem_ruc_file',
+                'pluginOptions' => [
+                    //'previewFileType' => 'any', 
+                    'showPreview' => false,
+                    'browseLabel' => Yii::t("formulario", "Examine"),
+                    'uploadUrl' => Url::to(['/mceformulariotemp/uploadfile']),
+                    'allowedFileExtensions' => Yii::$app->params["FileExtensions"],
+                    'initialCaption' => Yii::t("formulario", "Attach Ruc"),
+                    'maxFileSize' => Yii::$app->params["MaxFileSize"],
+                ],
+                    //'options' => ['id' => 'txt_ftem_ruc_file'],
+            ]);*/
+            //echo $this->theme->baseUrl;
+            //echo Yii::$app->request->BaseUrl;
+            //echo Yii::$app->basePath;
+            ?>
+            <input id="txt_ftem_ruc_file" name="file" type="file" class="file-loading" >
+            <?= Html::hiddenInput('txth_ftem_ruc_file', '',['id' =>'txth_ftem_ruc_file']); ?>
+        </div>
+    </div>
+    <div id="div_certificadoVotacion" class="form-group">
+        <label for="txt_ftem_cer_file" class="col-sm-3 control-label"><?= Yii::t("formulario", "Certificates of voting") ?></label>
+        <div class="col-sm-6">
+            <?php
+            /*echo FileInput::widget([
+                'id' => 'txt_ftem_cer_file',
+                'name' => 'file',
+                'pluginOptions' => [
+                    //'previewFileType' => 'any', 
+                    'showPreview' => false,
+                    'browseLabel' => Yii::t("formulario", "Examine"),
+                    'uploadUrl' => Url::to(['/mceformulariotemp/uploadfile']),
+                    'allowedFileExtensions' => Yii::$app->params["FileExtensions"],
+                    'initialCaption' => Yii::t("formulario", "Attach certificates of voting"),
+                    'maxFileSize' => Yii::$app->params["MaxFileSize"],
+                ],
+                    //'options' => ['accept' => 'image/*','id' => 'txt_ftem_cer_file'],
+            ]);*/
+            ?>
+            <input id="txt_ftem_cer_file" name="file" type="file" class="file-loading" >
+            <?= Html::hiddenInput('txth_ftem_cer_file', '',['id' =>'txth_ftem_cer_file']); ?>
+        </div>
+    </div>
+    <div id="div_SuperCompania" class="form-group" style="display: none">
+        <label for="txt_ftem_cert_super_compania_file" class="col-sm-3 control-label"><?= Yii::t("formulario", "Certificate Superintendency of Companies") ?></label>
+        <div class="col-sm-6">
+            <?php
+            /*echo FileInput::widget([
+                'name' => 'file',
+                'id' => 'txt_ftem_cert_super_compania_file',
+                'pluginOptions' => [
+                    //'previewFileType' => 'any', 
+                    'showPreview' => false,
+                    'browseLabel' => Yii::t("formulario", "Examine"),
+                    'uploadUrl' => Url::to(['/mceformulariotemp/uploadfile']),
+                    'allowedFileExtensions' => Yii::$app->params["FileExtensions"],
+                    'initialCaption' => Yii::t("formulario", "Attach certificate Superintendency of Companies"),
+                    'maxFileSize' => Yii::$app->params["MaxFileSize"],
+                ],
+                'options' => ['accept' => 'image/*'],
+            ]);*/
+            ?>
+            <input id="txt_ftem_cert_super_compania_file" name="file" type="file" class="file-loading" >
+            <?= Html::hiddenInput('txth_ftem_cert_super_compania_file', '',['id' =>'txth_ftem_cert_super_compania_file']); ?>
+        </div>
+    </div>
+    <div id="div_RegisSanitario" class="form-group" style="display: none">
+        <label for="txt_ftem_registro_sanitario_file" class="col-sm-3 control-label"><?= Yii::t("formulario", "Veterinary") ?></label>
+        <div class="col-sm-6">
+            <?php
+            /*echo FileInput::widget([
+                'name' => 'file',
+                'id' => 'txt_ftem_registro_sanitario_file',
+                'pluginOptions' => [
+                    //'previewFileType' => 'any', 
+                    'showPreview' => false,
+                    'browseLabel' => Yii::t("formulario", "Examine"),
+                    'uploadUrl' => Url::to(['/mceformulariotemp/uploadfile']),
+                    'allowedFileExtensions' => Yii::$app->params["FileExtensions"],
+                    'initialCaption' => Yii::t("formulario", "Veterinary"),
+                    'maxFileSize' => Yii::$app->params["MaxFileSize"],
+                ],
+                'options' => ['accept' => 'image/*'],
+            ]);*/
+            ?>
+            <input id="txt_ftem_registro_sanitario_file" name="file" type="file" class="file-loading" >
+            <?= Html::hiddenInput('txth_ftem_registro_sanitario_file', '',['id' =>'txth_ftem_registro_sanitario_file']); ?>
+        </div>
+    </div>
+    <div id="div_PermisoMitur" class="form-group" style="display: none">
+        <label for="txt_ftem_perm_func_mitur_file" class="col-sm-3 control-label"><?= Yii::t("formulario", "MINTUR operating permit") ?></label>
+        <div class="col-sm-6">
+            <?php
+            /*echo FileInput::widget([
+                'name' => 'file',
+                'id' => 'txt_ftem_perm_func_mitur_file',
+                'pluginOptions' => [
+                    //'previewFileType' => 'any', 
+                    'showPreview' => false,
+                    'browseLabel' => Yii::t("formulario", "Examine"),
+                    'uploadUrl' => Url::to(['/mceformulariotemp/uploadfile']),
+                    'allowedFileExtensions' => Yii::$app->params["FileExtensions"],
+                    'initialCaption' => Yii::t("formulario", "MINTUR operating permit"),
+                    'maxFileSize' => Yii::$app->params["MaxFileSize"],
+                ],
+                'options' => ['accept' => 'image/*'],
+            ]);*/
+            ?>
+            <input id="txt_ftem_perm_func_mitur_file" name="file" type="file" class="file-loading" >
+            <?= Html::hiddenInput('txth_ftem_perm_func_mitur_file', '',['id' =>'txth_ftem_perm_func_mitur_file']); ?>
+        </div>
+    </div>
+
+</div>
+
+<div class="row"> 
+    <div class="col-md-10"></div>
+    <!--        <div class="col-md-2">
+                <a id="btn_save_1" href="javascript:" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span> <?= Yii::t("Accion", "Save") ?></a>
+            </div>-->
+    <div class="col-md-2">
+        <a id="paso1next" href="javascript:" class="btn btn-primary btn-block"> <?= Yii::t("formulario", "Next") ?> <span class="glyphicon glyphicon-menu-right"></span></a>
+    </div>
+</div>
+

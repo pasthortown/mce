@@ -1,0 +1,12 @@
+<strong>Hola [[user]],</strong>
+<br /><br />
+Su solicitud requiere revisión.
+<br /><br />
+<p>[[mensaje]]</p>
+<br /><br />
+Por favor inicie sesión haciendo click a continuacion y entrando en la Acción "Corregir"
+<br /><br />
+<!-- <a href='[[link]]' target='_blank'>[[link]]</a> -->
+<a href='http://licenciatariosmarcaecuador.turismo.gob.ec' target='_blank'>AVANCE DE PROCESO</a>
+<br /><br /><br />
+<strong>Atte. Licenciatarios Marca Ecuador</strong>
