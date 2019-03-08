@@ -54,7 +54,7 @@ use yii\helpers\Html;
                 <div class="tab-pane active" id="basico">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="frm_actual_clave" class="col-sm-2 control-label"><?= Yii::t("login","Current Password") ?></label>
+                            <label for="frm_actual_clave" class="col-sm-2 control-label">..<?= Yii::t("login","Current Password") ?></label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control" id="frm_actual_clave" placeholder="<?= Yii::t("login","Current Password") ?>">
                             </div>
