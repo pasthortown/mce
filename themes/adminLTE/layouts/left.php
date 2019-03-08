@@ -91,7 +91,7 @@ echo $menu;
             <li>
                 <a href="mailto:no-reply@turismo.gob.ec" target="_blank">
                     <i class="glyphicon glyphicon-envelope"></i>
-                    <span>Enviar Correo</span>
+                    <span>Comentarios y Sugerencias</span>
                 </a>
             </li>
 
